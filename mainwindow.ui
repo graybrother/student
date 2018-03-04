@@ -112,6 +112,19 @@
      <string>student tracking</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="par_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>150</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Patition</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
