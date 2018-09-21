@@ -19,12 +19,16 @@ void Student_Feature_Init(student_Feature_t &obj)
   obj.notmoveCount    = 0;
   obj.isCurrentObj    = false;
   obj.isStandup=false;
+  obj.tobeConfirmed=false;
+  obj.haveFace=false;
+  obj.startTimeout=0;
   obj.standupTimeout=0;
   obj.maxMoveTimeout=0;
 
   //
 
   obj.rect=cv::Rect(0,0,0,0);
+
 
   obj.points[0].clear();
   obj.points[1].clear();
@@ -117,17 +121,17 @@ void SetPoints(std::vector<cv::Point2f> &points, std::vector<cv::Point2f> &initi
 }
 
 
-void FindLKObj(std::vector<cv::Point2f> &point , std::vector<cv::Point2i> &Center,int &objNum)
+void FindLKObj(int width, int height,std::vector<cv::Point2f> &point , std::vector<cv::Point2i> &Center,int &objNum)
 {
    // int T = 10;
 
-    int xxx=10;
-    int yyy=6;
-    int xGap=96;
-    int yGap=90;
+    int xxx=16;
+    int yyy=9;
+    int xGap=width/xxx;
+    int yGap=height/yyy;
     //int xxGap=xGap/2;
-    int xxGap=20;
-    int yyGap=yGap/2;
+   // int xxGap=20;
+   // int yyGap=yGap/2;
 
     int round_1_Num=0;
     int round_2_Num=0;
@@ -143,14 +147,17 @@ void FindLKObj(std::vector<cv::Point2f> &point , std::vector<cv::Point2i> &Cente
     int SumY[yyy];
     int SumX[xxx];
     int lastMiddle;
-    int thresHold1=3;
-    int thresHold2=3;
-    std::vector<cv::Point2f> xclassPoints[xxx],yclassPoints[yyy];
+ //modefied 3.7
+    int thresHold1=XNUMTHR;
+    int thresHold2=YNUMTHR;
+
+    std::vector<cv::Point2f> xclassPoints[xxx];
+    //std::vector<cv::Point2f> yclassPoints[yyy];
     cv::Point2f p;
 
     int i,j,k;
     int dist1,dist2;
-    int recleft[10],recright[10],rectop[10],recbottom[10];
+    int recleft[20],recright[20],rectop[20],recbottom[20];
 
     objNum=0;
     Center.clear();
@@ -318,8 +325,8 @@ void FindLKObj(std::vector<cv::Point2f> &point , std::vector<cv::Point2i> &Cente
         y_1_Num=0;
         y_2_Num=0;
         y_3_Num=0;
-        for(k=0; k<yyy; k++)
-            yclassPoints[k].clear();
+ //       for(k=0; k<yyy; k++)
+ //           yclassPoints[k].clear();
 
         //first round y
         for(i = 0;i < xclassPoints[j].size();i++)
@@ -693,7 +700,11 @@ void FindSTLKObj(std::vector<cv::Point2f> &point , std::vector<cv::Point2f> &Cen
 bool isMatched(cv::Rect &rect1,cv::Rect &rect2)
 {
     cv::Rect rect=rect1 & rect2;
-    return (rect.area()> MATCHAREA);
+    int minarea;
+    minarea=rect1.area();
+    if(minarea>rect2.area())
+        minarea=rect2.area();
+    return (rect.area()> minarea/3);
 }
 
 bool ssimRects(cv::Rect &r1,cv::Rect &r2,double eps)

@@ -125,6 +125,19 @@
      <string>Patition</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="face_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>250</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>faceDetect</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

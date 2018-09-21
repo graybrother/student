@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     studentapp.cpp
 
 HEADERS  += mainwindow.h \
-    studentapp.h
+    studentapp.h \
+    ysqface.h
 
 FORMS    += \
     mainwindow.ui
@@ -35,3 +36,8 @@ LIBS +=  c:/opencv-contrib/lib/libopencv_*.dll.a
 #LIBS +=  c:/opencv-contrib/lib/libopencv_videoio320.dll.a
 #LIBS +=  c:/opencv-contrib/lib/libopencv_video320.dll.a
 
+
+win32: LIBS += -L$$PWD/ -lysqface
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/

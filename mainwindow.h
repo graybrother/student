@@ -29,6 +29,8 @@ private slots:
 
     void on_par_pushButton_clicked();
 
+    void on_face_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString filename;
